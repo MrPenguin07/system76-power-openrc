@@ -623,7 +623,7 @@ impl Graphics {
             );
         }
 
-        log::info!("Updating initramfs");
+        /*log::info!("Updating initramfs");
         let status = process::Command::new(UPDATE_INITRAMFS_CMD)
             .arg("initramfs")
             .status()
@@ -631,7 +631,7 @@ impl Graphics {
 
         if !status.success() {
             return Err(GraphicsDeviceError::UpdateInitramfs(status));
-        }
+        } */
 
         Ok(())
     }
