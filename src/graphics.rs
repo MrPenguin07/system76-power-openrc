@@ -118,8 +118,8 @@ const EXTERNAL_DISPLAY_REQUIRES_NVIDIA: &[&str] = &[
     "serw13",
 ];
 
-const SYSTEMCTL_CMD: &str = "systemctl";
-const UPDATE_INITRAMFS_CMD: &str = "update-initramfs";
+const SYSTEMCTL_CMD: &str = "rc-service";
+const UPDATE_INITRAMFS_CMD: &str = "genkernel";
 
 #[derive(Debug, thiserror::Error)]
 pub enum GraphicsDeviceError {
@@ -151,7 +151,7 @@ pub enum GraphicsDeviceError {
     SysFs(io::Error),
     #[error("failed to unbind {} on PCI driver {}: {}", func, driver, why)]
     Unbind { func: String, driver: String, why: io::Error },
-    #[error("update-initramfs failed with {} status", _0)]
+    #[error("genkernel failed with {} status", _0)]
     UpdateInitramfs(ExitStatus),
     #[error("failed to access Xserver config: {}", _0)]
     XserverConf(io::Error),
@@ -602,30 +602,30 @@ impl Graphics {
         }
 
         let action = if vendor == GraphicsMode::Discrete {
-            log::info!("Enabling nvidia-fallback.service");
-            "enable"
+            log::info!("Enabling nvidia-fallback");
+            "start"
         } else {
-            log::info!("Disabling nvidia-fallback.service");
-            "disable"
+            log::info!("Disabling nvidia-fallback");
+            "stop"
         };
 
         let status = process::Command::new(SYSTEMCTL_CMD)
             .arg(action)
-            .arg("nvidia-fallback.service")
+            .arg("nvidia-fallback")
             .status()
             .map_err(|why| GraphicsDeviceError::Command { cmd: SYSTEMCTL_CMD, why })?;
 
         if !status.success() {
             // Error is ignored in case this service is removed
             log::warn!(
-                "systemctl: failed with {} (not an error if service does not exist!)",
+                "rc-service: failed with {} (not an error if service does not exist!)",
                 status
             );
         }
 
         log::info!("Updating initramfs");
         let status = process::Command::new(UPDATE_INITRAMFS_CMD)
-            .arg("-u")
+            .arg("initramfs")
             .status()
             .map_err(|why| GraphicsDeviceError::Command { cmd: UPDATE_INITRAMFS_CMD, why })?;
 
