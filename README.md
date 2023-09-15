@@ -1,3 +1,12 @@
+Forked from pop-os/system76-power
+System76 Power Management 
+
+Credits to the system76 team;
+However applications with hard dependencies on systemd is not cool... 
+
+
+---------
+
 # System76 Power Management
 
 **system76-power** is a utility for managing graphics and power profiles.
