@@ -1,4 +1,4 @@
-Forked from pop-os/system76-power
+# Forked from pop-os/system76-power
 System76 Power Management 
 
 Credits to the system76 team;
