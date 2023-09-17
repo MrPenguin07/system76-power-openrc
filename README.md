@@ -1,7 +1,7 @@
 # Forked from pop-os/system76-power
 System76 Power Management daemon
 
-### Installation
+### Gentoo Installation
 Place system76-power-9999.ebuild in local overlay then;
 ```
 # ebuild <local-overlay-path>/system76-power-9999.ebuild manifest
