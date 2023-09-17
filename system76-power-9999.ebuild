@@ -17,6 +17,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
 
+# Note: this is a barebones ebuild, it assumes you have deps such as sys-apps/openrc ...
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
