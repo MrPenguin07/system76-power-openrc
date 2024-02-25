@@ -1,19 +1,23 @@
-# Forked from pop-os/system76-power
-System76 Power Management daemon
+## Forked from pop-os/system76-power
+System76 Power Management daemon, modified for use with OpenRC.
+
+**Gentoo ebuild**
+[sys-power/system76-power-openrc](https://github.com/MrPenguin07/ebuilds/tree/master/sys-power/system76-power-openrc)
 
 ### Gentoo Installation
-Place system76-power-9999.ebuild in local overlay then;
+Add my [overlay](https://github.com/MrPenguin07/ebuilds) or  
+Place system76-power-openrc-9999.ebuild in your local overlay then;
 ```
-# ebuild <local-overlay-path>/system76-power-9999.ebuild manifest
-# echo "sys-power/system76-power **" >> /etc/portage/package.accept_keywords/system76-power
-# emerge -av system76-power
+# ebuild <local-overlay-path>/system76-power-openrc-9999.ebuild manifest
+# echo "sys-power/system76-power-openrc **" >> /etc/portage/package.accept_keywords/system76-power-openrc
+# emerge -av system76-power-openrc
 # rc-update add system76-power default
 Run the daemon in active session;
 # /etc/init.d/system76-power start
 ```
 
 Credits to the system76 team;
-However applications with hard dependencies on systemd is not cool... 
+However applications depending on systemd is not cool... 
 
 
 ---------
