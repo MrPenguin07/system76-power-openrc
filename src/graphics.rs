@@ -97,6 +97,7 @@ const EXTERNAL_DISPLAY_REQUIRES_NVIDIA: &[&str] = &[
     "addw1",
     "addw2",
     "addw3",
+    "addw4",
     "bonw15",
     "gaze14",
     "gaze15",
@@ -115,6 +116,7 @@ const EXTERNAL_DISPLAY_REQUIRES_NVIDIA: &[&str] = &[
     "oryp9",
     "oryp10",
     "oryp11",
+    "oryp12",
     "serw13",
 ];
 
@@ -261,6 +263,28 @@ pub enum GraphicsMode {
     Compute,
     Hybrid,
     Discrete,
+}
+
+impl From<GraphicsMode> for &'static str {
+    fn from(mode: GraphicsMode) -> &'static str {
+        match mode {
+            GraphicsMode::Integrated => "integrated",
+            GraphicsMode::Compute => "compute",
+            GraphicsMode::Hybrid => "hybrid",
+            GraphicsMode::Discrete => "nvidia",
+        }
+    }
+}
+
+impl From<&str> for GraphicsMode {
+    fn from(vendor: &str) -> Self {
+        match vendor {
+            "nvidia" => GraphicsMode::Discrete,
+            "hybrid" => GraphicsMode::Hybrid,
+            "compute" => GraphicsMode::Compute,
+            _ => GraphicsMode::Integrated,
+        }
+    }
 }
 
 pub struct Graphics {
